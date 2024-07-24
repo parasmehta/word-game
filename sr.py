@@ -9,7 +9,6 @@ word_generator = RandomWord()
 
 def hear_pronunciation():
     if 'current_word' in st.session_state:
-        print("pronouncing", st.session_state.current_word)
         engine = pyttsx3.init()
         engine.stop()
         engine.say(st.session_state.current_word)
@@ -111,14 +110,21 @@ with col2:
 current_word = get_current_word()
 transcription = get_transcription()
 
+col11, col12 = st.columns([1, 1], gap="medium")
+
 if current_word and transcription and len(current_word) > 0 and len(transcription) > 0:
-    st.write(f"We expected: **{current_word}**")
-    st.write(f"You said: **{transcription}**")
+
+    # col11.write(f"**We expected**")
+    col11.write(f"#### {current_word}")
+    # col12.write(f"**You said**")
+    col12.write(f"#### {transcription}")
 
     if current_word.lower() == transcription.lower():
-        st.write("You got it!")
+        st.write('<h3 style="color: green">You got it!</span>',
+                 unsafe_allow_html=True)
     else:
-        st.write("Try again!")
+        st.write('<h3 style="color: red">Try again.</span>',
+                 unsafe_allow_html=True)
 
 # recording = audiorecorder("", "")
 # if len(recording) > 0:
